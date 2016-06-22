@@ -28,7 +28,8 @@ end
 def print students
   #student will be each hash
   students.each_with_index do |student, index|
-    puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+    #only print students whos name begins with "J"
+    puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)" if student[:name].start_with?("J")
   end
 end
 
