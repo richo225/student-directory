@@ -26,8 +26,9 @@ end
 
 #add a method that prints students and their cohort
 def print students
-  students.each do |student|
-  puts "#{student[:name]} (#{student[:cohort]} cohort)"
+  #student will be each hash
+  students.each_with_index do |student, index|
+    puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
   end
 end
 
