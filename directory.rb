@@ -24,12 +24,13 @@ def print_header
   puts "-------------"
 end
 
-#add a method that prints students and their cohort
+#add a method that prints students and their cohort using loop
 def print students
-  #student will be each hash
-  students.each_with_index do |student, index|
-    #only print students whos name begins with "J"
-    puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)" if student[:name].start_with?("J") && student[:name].length < 12
+  index = 0
+  #assign students[0] index = 0 and then keep adding 1 to loop through array
+  while (index < students.length) && (students[index][:name].start_with?("J", "j")) && (students[index][:name].length < 12)
+    puts "#{index + 1}. #{students[index][:name]} (#{students[index][:cohort]} cohort)"
+    index +=1
   end
 end
 
