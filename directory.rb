@@ -1,11 +1,15 @@
 #method to allow user input
 def input_students
   puts "Please enter the name of the students"
-  puts "To finish, just hit return twice"
+  puts "To finish, just hit return four times"
   #create an empty array to store the input_students
   students = []
   #get their information
   name = gets.chomp
+  puts "Please enter his/her cohort"
+  cohort_input = gets.chomp
+  cohort_input == ""? cohort = "Default: November" : cohort = cohort_input
+
   puts "Please enter his/her country of birth"
   country = gets.chomp
   puts "Please enter his/her hobby"
@@ -14,10 +18,13 @@ def input_students
   #while the name is not empty(enter key not hit twice), repeat this code
   while !name.empty? do
     #add the student hash to the array
-    students << {name: name, cohort: :november, country: country, hobby: hobby}
+    students << {name: name, cohort: cohort, country: country, hobby: hobby}
     puts "Now we have #{students.count} students"
     #get another name from the user and their info without prompts
+    puts "Please enter student info: name, cohort, country of birth, hobby"
     name = gets.chomp
+    cohort_input = gets.chomp
+    cohort_input == ""? cohort = "Default: November" : cohort = cohort_input
     country = gets.chomp
     hobby = gets.chomp
   end
@@ -36,7 +43,8 @@ def print students
   index = 0
   #assign students[0] index = 0 and then keep adding 1 to loop through array
   while index < students.length
-    puts "#{index + 1}. Name:".ljust(11) + "-".center(8) + "#{students[index][:name]} (#{students[index][:cohort]} cohort)"
+    puts "#{index + 1}. Name:".ljust(11) + "-".center(8) + "#{students[index][:name]}"
+    puts "   Cohort:".ljust(11) + "-".center(8) + "#{students[index][:cohort]}"
     puts "   Country:".ljust(11) + "-".center(8) + "#{students[index][:country]}"
     puts "   Hobby:".ljust(11) + "-".center(8) + "#{students[index][:hobby]}"
     puts ""
