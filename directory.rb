@@ -35,10 +35,11 @@ end
 def print students
   index = 0
   #assign students[0] index = 0 and then keep adding 1 to loop through array
-  while (index < students.length) && (students[index][:name].start_with?("J", "j")) && (students[index][:name].length < 12)
-    puts "#{index + 1}.#{students[index][:name]} (#{students[index][:cohort]} cohort)"
-    puts "   Country of birth: #{students[index][:country]}"
-    puts "   Hobby: #{students[index][:hobby]}"
+  while index < students.length
+    puts "#{index + 1}. Name:".ljust(11) + "-".center(8) + "#{students[index][:name]} (#{students[index][:cohort]} cohort)"
+    puts "   Country:".ljust(11) + "-".center(8) + "#{students[index][:country]}"
+    puts "   Hobby:".ljust(11) + "-".center(8) + "#{students[index][:hobby]}"
+    puts ""
     index +=1
   end
 end
