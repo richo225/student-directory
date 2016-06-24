@@ -80,7 +80,13 @@ end
 
 #add a footer method that prints student count
 def print_footer (names)
-  puts "Overall, we have #{names.count} great students"
+  if names.count > 1
+    puts "Overall, we have #{names.count} great students"
+  elsif names.count == 1
+    puts "Overall, we have 1 great student"
+  else
+    puts "There are no students yet"
+  end
 end
 
 #assign the method to the other methods' parameters(students)
