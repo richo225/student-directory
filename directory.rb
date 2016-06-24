@@ -35,7 +35,7 @@ end
 #method to allow user input if 1 chosen in menu
 def input_students
   puts "Please enter the name of the students"
-  puts "To finish, just hit return four times"
+  puts "To finish, just hit return twice"
   #get their information
   name = gets.chomp
   puts "Please enter his/her cohort: January, July or November?"
@@ -54,14 +54,10 @@ def input_students
     @students << {name: name, cohort: cohort, country: country, hobby: hobby}
     @students.length > 1 ? (puts "Now we have #{@students.count} students") : (puts "Now we have 1 student")
     #get another name from the user and their info without prompts
-    puts "Please enter student info: name, cohort, country of birth, hobby"
+    puts "Please enter the name of the students"
+    puts "To finish, just hit return twice"
     name = gets.chomp
-    cohort_input = gets.chomp
-    cohort_input == ""? cohort = "November" : cohort = cohort_input
-    country = gets.chomp
-    hobby = gets.chomp
   end
-  #return the array of students
 end
 
 #add a header method
