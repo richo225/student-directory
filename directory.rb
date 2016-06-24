@@ -1,22 +1,17 @@
 def interactive_menu
   puts "What would you like to do?"
-  students = []
+  @students = [] #empty array accessible to all methods
   loop do
     #print the menu and ask the user what to do
-    puts "1. Input the students"
-    puts "2. Show the students"
-    puts "9. Exit"
+    print_menu
     #read the input and save it into a variable
     selection = gets.chomp
     #do what the user has asked
     case selection
       when "1"
-        #input the students
-        students = input_students
+        input_students
       when "2"
-        print_header
-        print students
-        print_footer students
+        show_students
       when "9"
         exit #cause the program to terminate
       else
@@ -25,12 +20,22 @@ def interactive_menu
   end
 end
 
-#method to allow user input
+def print_menu
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "9. Exit"
+end
+
+def show_students
+  print_header
+  print_students
+  print_footer @students
+end
+
+#method to allow user input if 1 chosen in menu
 def input_students
   puts "Please enter the name of the students"
   puts "To finish, just hit return four times"
-  #create an empty array to store the input_students
-  students = []
   #get their information
   name = gets.chomp
   puts "Please enter his/her cohort: January, July or November?"
@@ -46,8 +51,8 @@ def input_students
   #while the name is not empty(enter key not hit twice), repeat this code
   while !name.empty? do
     #add the student hash to the array
-    students << {name: name, cohort: cohort, country: country, hobby: hobby}
-    students.length > 1 ? (puts "Now we have #{students.count} students") : (puts "Now we have 1 student")
+    @students << {name: name, cohort: cohort, country: country, hobby: hobby}
+    @students.length > 1 ? (puts "Now we have #{@students.count} students") : (puts "Now we have 1 student")
     #get another name from the user and their info without prompts
     puts "Please enter student info: name, cohort, country of birth, hobby"
     name = gets.chomp
@@ -57,7 +62,6 @@ def input_students
     hobby = gets.chomp
   end
   #return the array of students
-  students
 end
 
 #add a header method
@@ -67,12 +71,12 @@ def print_header
 end
 
 #add a method that prints students and their cohort using loop
-def print students
+def print_students
   #get list of existing cohorts january, july or november
-  existing_cohorts = students.map {|student| student[:cohort]}.sort.uniq
+  existing_cohorts = @students.map {|student| student[:cohort]}.sort.uniq
 
   #first cohort - if the student matches the existing cohort print the info
-  students.each {|student|
+  @students.each {|student|
     if student[:cohort] == existing_cohorts[0]
       puts "   Name:".ljust(11) + "-".center(8) + "#{student[:name]}"
       puts "   Cohort:".ljust(11) + "-".center(8) + "#{student[:cohort]}"
@@ -83,7 +87,7 @@ def print students
   }
 
   #second cohort
-  students.each {|student|
+  @students.each {|student|
     if student[:cohort] == existing_cohorts[1]
       puts "   Name:".ljust(11) + "-".center(8) + "#{student[:name]}"
       puts "   Cohort:".ljust(11) + "-".center(8) + "#{student[:cohort]}"
@@ -94,7 +98,7 @@ def print students
   }
 
   #third cohort
-  students.each {|student|
+  @students.each {|student|
     if student[:cohort] == existing_cohorts[2]
       puts "   Name:".ljust(11) + "-".center(8) + "#{student[:name]}"
       puts "   Cohort:".ljust(11) + "-".center(8) + "#{student[:cohort]}"
