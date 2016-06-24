@@ -20,7 +20,7 @@ def input_students
   while !name.empty? do
     #add the student hash to the array
     students << {name: name, cohort: cohort, country: country, hobby: hobby}
-    puts "Now we have #{students.count} students"
+    students.length > 1 ? (puts "Now we have #{students.count} students") : (puts "Now we have 1 student")
     #get another name from the user and their info without prompts
     puts "Please enter student info: name, cohort, country of birth, hobby"
     name = gets.chomp
@@ -45,7 +45,7 @@ def print students
   existing_cohorts = students.map {|student| student[:cohort]}.sort.uniq
 
   #first cohort - if the student matches the existing cohort print the info
-  students.each do |student|
+  students.each {|student|
     if student[:cohort] == existing_cohorts[0]
       puts "   Name:".ljust(11) + "-".center(8) + "#{student[:name]}"
       puts "   Cohort:".ljust(11) + "-".center(8) + "#{student[:cohort]}"
@@ -53,10 +53,10 @@ def print students
       puts "   Hobby:".ljust(11) + "-".center(8) + "#{student[:hobby]}"
       puts ""
     end
-  end
+  }
 
   #second cohort
-  students.each do |student|
+  students.each {|student|
     if student[:cohort] == existing_cohorts[1]
       puts "   Name:".ljust(11) + "-".center(8) + "#{student[:name]}"
       puts "   Cohort:".ljust(11) + "-".center(8) + "#{student[:cohort]}"
@@ -64,10 +64,10 @@ def print students
       puts "   Hobby:".ljust(11) + "-".center(8) + "#{student[:hobby]}"
       puts ""
     end
-  end
+  }
 
   #third cohort
-  students.each do |student|
+  students.each {|student|
     if student[:cohort] == existing_cohorts[2]
       puts "   Name:".ljust(11) + "-".center(8) + "#{student[:name]}"
       puts "   Cohort:".ljust(11) + "-".center(8) + "#{student[:cohort]}"
@@ -75,7 +75,7 @@ def print students
       puts "   Hobby:".ljust(11) + "-".center(8) + "#{student[:hobby]}"
       puts ""
     end
-  end
+  }
 end
 
 #add a footer method that prints student count
