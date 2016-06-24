@@ -1,22 +1,26 @@
+@students = [] #empty array accessible to all methods
+
 def interactive_menu
   puts "What would you like to do?"
-  @students = [] #empty array accessible to all methods
   loop do
     #print the menu and ask the user what to do
     print_menu
-    #read the input and save it into a variable
-    selection = gets.chomp
     #do what the user has asked
-    case selection
-      when "1"
-        input_students
-      when "2"
-        show_students
-      when "9"
-        exit #cause the program to terminate
-      else
-        puts "I don't know what you meant, please try again"
-    end
+    process gets.chomp
+    #run the process method passing in gets.chomp as selection
+  end
+end
+
+def process selection
+  case selection
+    when "1"
+      input_students
+    when "2"
+      show_students
+    when "9"
+      exit #cause the program to terminate
+    else
+      puts "I don't know what you meant, please try again"
   end
 end
 
@@ -29,7 +33,7 @@ end
 def show_students
   print_header
   print_students
-  print_footer @students
+  print_footer
 end
 
 #method to allow user input if 1 chosen in menu
@@ -38,27 +42,25 @@ def input_students
   puts "To finish, just hit return twice"
   #get their information
   name = gets.chomp
-  puts "Please enter his/her cohort: January, July or November?"
-  cohort_input = gets.chomp
-  #set default November cohort if nothing entered
-  cohort_input == ""? cohort = "November" : cohort = cohort_input
-
-  puts "Please enter his/her country of birth"
-  country = gets.chomp
-  puts "Please enter his/her hobby"
-  hobby = gets.chomp
-
-  #while the name is not empty(enter key not hit twice), repeat this code
-  while !name.empty? do
+  if !name.empty?
+    puts "Please enter his/her cohort: January, July or November?"
+    cohort_input = gets.chomp
+    #set default November cohort if nothing entered
+    cohort_input == ""? cohort = "November" : cohort = cohort_input
+    puts "Please enter his/her country of birth"
+    country = gets.chomp
+    puts "Please enter his/her hobby"
+    hobby = gets.chomp
     #add the student hash to the array
     @students << {name: name, cohort: cohort, country: country, hobby: hobby}
     @students.length > 1 ? (puts "Now we have #{@students.count} students") : (puts "Now we have 1 student")
-    #get another name from the user and their info without prompts
-    puts "Please enter the name of the students"
-    puts "To finish, just hit return twice"
-    name = gets.chomp
+    #recursion to ask for another name = couldn't get while to work???
+    input_students
   end
 end
+
+
+  #while the name is not empty(enter key not hit twice), repeat this code
 
 #add a header method
 def print_header
@@ -106,10 +108,10 @@ def print_students
 end
 
 #add a footer method that prints student count
-def print_footer (names)
-  if names.count > 1
-    puts "Overall, we have #{names.count} great students"
-  elsif names.count == 1
+def print_footer
+  if @students.count > 1
+    puts "Overall, we have #{@students.count} great students"
+  elsif @students.count == 1
     puts "Overall, we have 1 great student"
   else
     puts "There are no students yet"
