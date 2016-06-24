@@ -6,9 +6,10 @@ def input_students
   students = []
   #get their information
   name = gets.chomp
-  puts "Please enter his/her cohort"
+  puts "Please enter his/her cohort: January, July or November?"
   cohort_input = gets.chomp
-  cohort_input == ""? cohort = "Default: November" : cohort = cohort_input
+  #set default November cohort if nothing entered
+  cohort_input == ""? cohort = "November" : cohort = cohort_input
 
   puts "Please enter his/her country of birth"
   country = gets.chomp
@@ -24,7 +25,7 @@ def input_students
     puts "Please enter student info: name, cohort, country of birth, hobby"
     name = gets.chomp
     cohort_input = gets.chomp
-    cohort_input == ""? cohort = "Default: November" : cohort = cohort_input
+    cohort_input == ""? cohort = "November" : cohort = cohort_input
     country = gets.chomp
     hobby = gets.chomp
   end
@@ -40,15 +41,29 @@ end
 
 #add a method that prints students and their cohort using loop
 def print students
-  index = 0
-  #assign students[0] index = 0 and then keep adding 1 to loop through array
-  while index < students.length
-    puts "#{index + 1}. Name:".ljust(11) + "-".center(8) + "#{students[index][:name]}"
-    puts "   Cohort:".ljust(11) + "-".center(8) + "#{students[index][:cohort]}"
-    puts "   Country:".ljust(11) + "-".center(8) + "#{students[index][:country]}"
-    puts "   Hobby:".ljust(11) + "-".center(8) + "#{students[index][:hobby]}"
-    puts ""
-    index +=1
+  #get list of existing cohorts january, july or november
+  existing_cohorts = students.map {|student| student[:cohort]}.sort.uniq
+
+  #first cohort - if the student matches the existing cohort print the info
+  students.each do |student|
+    if student[:cohort] == existing_cohorts[0]
+      puts "   Name:".ljust(11) + "-".center(8) + "#{student[:name]}"
+      puts "   Cohort:".ljust(11) + "-".center(8) + "#{student[:cohort]}"
+      puts "   Country:".ljust(11) + "-".center(8) + "#{student[:country]}"
+      puts "   Hobby:".ljust(11) + "-".center(8) + "#{student[:hobby]}"
+      puts ""
+    end
+  end
+
+  #second cohort
+  students.each do |student|
+    if student[:cohort] == existing_cohorts[1]
+      puts "   Name:".ljust(11) + "-".center(8) + "#{student[:name]}"
+      puts "   Cohort:".ljust(11) + "-".center(8) + "#{student[:cohort]}"
+      puts "   Country:".ljust(11) + "-".center(8) + "#{student[:country]}"
+      puts "   Hobby:".ljust(11) + "-".center(8) + "#{student[:hobby]}"
+      puts ""
+    end
   end
 end
 

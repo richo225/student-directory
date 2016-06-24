@@ -7,13 +7,38 @@ students = [
 {name: "Jason Bourne Junior", cohort: "November", country: "Africa", hobby: "Shooting"}
 ]
 
-index = 0
+#get list of existing cohorts
+existing_cohorts = students.map {|student| student[:cohort]}.sort.uniq
 
-while index < students.length
-  puts "#{index + 1}. Name:".ljust(11) + "-".center(8) + "#{students[index][:name]}"
-  puts "   Cohort:".ljust(11) + "-".center(8) + "#{students[index][:cohort]}"
-  puts "   Country:".ljust(11) + "-".center(8) + "#{students[index][:country]}"
-  puts "   Hobby:".ljust(11) + "-".center(8) + "#{students[index][:hobby]}"
-  puts ""
-  index +=1
+#first cohort - if the student matches the existing cohort print the info
+students.each do |student|
+  if student[:cohort] == existing_cohorts[0]
+    puts "   Name:".ljust(11) + "-".center(8) + "#{student[:name]}"
+    puts "   Cohort:".ljust(11) + "-".center(8) + "#{student[:cohort]}"
+    puts "   Country:".ljust(11) + "-".center(8) + "#{student[:country]}"
+    puts "   Hobby:".ljust(11) + "-".center(8) + "#{student[:hobby]}"
+    puts ""
+  end
+end
+
+#second cohort
+students.each do |student|
+  if student[:cohort] == existing_cohorts[1]
+    puts "   Name:".ljust(11) + "-".center(8) + "#{student[:name]}"
+    puts "   Cohort:".ljust(11) + "-".center(8) + "#{student[:cohort]}"
+    puts "   Country:".ljust(11) + "-".center(8) + "#{student[:country]}"
+    puts "   Hobby:".ljust(11) + "-".center(8) + "#{student[:hobby]}"
+    puts ""
+  end
+end
+
+#third cohort
+students.each do |student|
+  if student[:cohort] == existing_cohorts[2]
+    puts "   Name:".ljust(11) + "-".center(8) + "#{student[:name]}"
+    puts "   Cohort:".ljust(11) + "-".center(8) + "#{student[:cohort]}"
+    puts "   Country:".ljust(11) + "-".center(8) + "#{student[:country]}"
+    puts "   Hobby:".ljust(11) + "-".center(8) + "#{student[:hobby]}"
+    puts ""
+  end
 end
