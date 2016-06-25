@@ -11,23 +11,26 @@ def interactive_menu
   end
 end
 
+def print_menu
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "3. Save the list to students.csv"
+  puts "9. Exit"
+end
+
 def process selection
   case selection
     when "1"
       input_students
     when "2"
       show_students
+    when "3"
+      save_students
     when "9"
       exit #cause the program to terminate
     else
       puts "I don't know what you meant, please try again"
   end
-end
-
-def print_menu
-  puts "1. Input the students"
-  puts "2. Show the students"
-  puts "9. Exit"
 end
 
 def show_students
@@ -47,12 +50,8 @@ def input_students
     cohort_input = gets.chomp
     #set default November cohort if nothing entered
     cohort_input == ""? cohort = "November" : cohort = cohort_input
-    puts "Please enter his/her country of birth"
-    country = gets.chomp
-    puts "Please enter his/her hobby"
-    hobby = gets.chomp
     #add the student hash to the array
-    @students << {name: name, cohort: cohort, country: country, hobby: hobby}
+    @students << {name: name, cohort: cohort}
     @students.length > 1 ? (puts "Now we have #{@students.count} students") : (puts "Now we have 1 student")
     #recursion to ask for another name = couldn't get while to work???
     input_students
@@ -65,43 +64,13 @@ def print_header
   puts "-------------"
 end
 
-#add a method that prints students and their cohort using loop
+#add a method that prints students and their cohort
 def print_students
-  #get list of existing cohorts january, july or november
-  existing_cohorts = @students.map {|student| student[:cohort]}.sort.uniq
-
-  #first cohort - if the student matches the existing cohort print the info
-  @students.each {|student|
-    if student[:cohort] == existing_cohorts[0]
+  @students.each do |student|
       puts "   Name:".ljust(11) + "-".center(8) + "#{student[:name]}"
       puts "   Cohort:".ljust(11) + "-".center(8) + "#{student[:cohort]}"
-      puts "   Country:".ljust(11) + "-".center(8) + "#{student[:country]}"
-      puts "   Hobby:".ljust(11) + "-".center(8) + "#{student[:hobby]}"
       puts ""
-    end
-  }
-
-  #second cohort
-  @students.each {|student|
-    if student[:cohort] == existing_cohorts[1]
-      puts "   Name:".ljust(11) + "-".center(8) + "#{student[:name]}"
-      puts "   Cohort:".ljust(11) + "-".center(8) + "#{student[:cohort]}"
-      puts "   Country:".ljust(11) + "-".center(8) + "#{student[:country]}"
-      puts "   Hobby:".ljust(11) + "-".center(8) + "#{student[:hobby]}"
-      puts ""
-    end
-  }
-
-  #third cohort
-  @students.each {|student|
-    if student[:cohort] == existing_cohorts[2]
-      puts "   Name:".ljust(11) + "-".center(8) + "#{student[:name]}"
-      puts "   Cohort:".ljust(11) + "-".center(8) + "#{student[:cohort]}"
-      puts "   Country:".ljust(11) + "-".center(8) + "#{student[:country]}"
-      puts "   Hobby:".ljust(11) + "-".center(8) + "#{student[:hobby]}"
-      puts ""
-    end
-  }
+  end
 end
 
 #add a footer method that prints student count
@@ -113,6 +82,22 @@ def print_footer
   else
     puts "There are no students yet"
   end
+end
+
+#add a method to save the students array to file if 4 chosen in menu
+def save_students
+  #open a file to be written to
+  file = File.open("students.csv", "w")
+  #iterate through students and save their name and cohort to a new array
+  @students.each do |student|
+    student_data = [student[:name], student[:cohort]]
+    #convert hash in array to a string (separated by a comma) to be saved
+    csv_line = student_data.join(",")
+    #save this string to the opened file
+    file.puts csv_line
+  end
+  #close the file
+  file.close
 end
 
 interactive_menu
