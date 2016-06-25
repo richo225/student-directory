@@ -6,7 +6,7 @@ def interactive_menu
     #print the menu and ask the user what to do
     print_menu
     #do what the user has asked
-    process gets.chomp
+    process STDIN.gets.chomp
     #run the process method passing in gets.chomp as selection
   end
 end
@@ -48,10 +48,10 @@ def input_students
   puts "Please enter the name of the students"
   puts "To finish and go back to the menu, hit return"
   #get their information
-  name = gets.chomp
+  name = STDIN.gets.chomp
   if !name.empty?
     puts "Please enter his/her cohort: January, July or November?"
-    cohort_input = gets.chomp
+    cohort_input = STDIN.gets.chomp
     #set default November cohort if nothing entered
     cohort_input == ""? cohort = "November" : cohort = cohort_input
     #add the student hash to the array
@@ -104,10 +104,10 @@ def save_students
   file.close
 end
 
-#add a method to read the students.csv file if 4 chosen in menu
-def load_students
-  #open the students.csv file
-  file = File.open("students.csv", "r")
+#add a method to read the filename given if 4 chosen in menu
+def load_students (filename = "students.csv")
+  #open the filename or students.csv as default
+  file = File.open(filename, "r")
   #iterate over each line in the file
   file.readlines.each do |line|
     #split at the comma and parallel assign name to the first value, cohort to the second
@@ -119,5 +119,22 @@ def load_students
   file.close
 end
 
+#add a method that takes the loading file as an argument from the command line
+def try_load_students
+  #assign filename as the first argument in the command line
+  filename = ARGV.first
+  #get out of the method if no arguments given
+  return if filename.nil?
+  #if a file is given and it exists, load it by passing it as the filename parameter to load_students method
+  if File.exists?(filename)
+    load_students(filename)
+    puts "Loaded #{@students.count} from #{filename}"
+  #if the file doesn't exist, quit the program
+  else
+    puts "Sorry, #{filename} doesn't exist."
+    exit
+  end
+end
 
+try_load_students
 interactive_menu
