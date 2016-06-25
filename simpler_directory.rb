@@ -54,7 +54,7 @@ def input_students
     cohort_input = STDIN.gets.chomp
     #set default November cohort if nothing entered
     cohort_input == ""? cohort = "November" : cohort = cohort_input
-    #add the student hash to the array
+    #add the student hash to the array by calling method
     @students << {name: name, cohort: cohort}
     @students.length > 1 ? (puts "Now we have #{@students.count} students") : (puts "Now we have 1 student")
     #recursion to ask for another name = couldn't get while to work???
@@ -112,7 +112,7 @@ def load_students (filename = "students.csv")
   file.readlines.each do |line|
     #split at the comma and parallel assign name to the first value, cohort to the second
     name, cohort = line.chomp.split(",")
-    #create a hash and push to the @students array
+    #create a hash and push to the @students array using method
     @students << {name: name, cohort: cohort}
   end
   #close the file
@@ -123,10 +123,11 @@ end
 def try_load_students
   #assign filename as the first argument in the command line
   filename = ARGV.first
-  #get out of the method if no arguments given
-  return if filename.nil?
+  #load "students.csv" as default if no arguments given
+  if filename.nil?
+    load_students("students.csv")
   #if a file is given and it exists, load it by passing it as the filename parameter to load_students method
-  if File.exists?(filename)
+  elsif File.exists?(filename)
     load_students(filename)
     puts "Loaded #{@students.count} from #{filename}"
   #if the file doesn't exist, quit the program
