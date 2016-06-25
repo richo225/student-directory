@@ -15,6 +15,7 @@ def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
   puts "3. Save the list to students.csv"
+  puts "4. Load the list from students.csv"
   puts "9. Exit"
 end
 
@@ -26,6 +27,8 @@ def process selection
       show_students
     when "3"
       save_students
+    when "4"
+      load_students
     when "9"
       exit #cause the program to terminate
     else
@@ -33,6 +36,7 @@ def process selection
   end
 end
 
+#add a method that prints the output if 2 chosen in menu
 def show_students
   print_header
   print_students
@@ -84,7 +88,7 @@ def print_footer
   end
 end
 
-#add a method to save the students array to file if 4 chosen in menu
+#add a method to save the students array to file if 3 chosen in menu
 def save_students
   #open a file to be written to
   file = File.open("students.csv", "w")
@@ -99,5 +103,21 @@ def save_students
   #close the file
   file.close
 end
+
+#add a method to read the students.csv file if 4 chosen in menu
+def load_students
+  #open the students.csv file
+  file = File.open("students.csv", "r")
+  #iterate over each line in the file
+  file.readlines.each do |line|
+    #split at the comma and parallel assign name to the first value, cohort to the second
+    name, cohort = line.chomp.split(",")
+    #create a hash and push to the @students array
+    @students << {name: name, cohort: cohort}
+  end
+  #close the file
+  file.close
+end
+
 
 interactive_menu
