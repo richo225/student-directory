@@ -22,14 +22,19 @@ end
 def process selection
   case selection
     when "1"
+      puts "Inputting students..."
       input_students
     when "2"
+      puts "Showing students..."
       show_students
     when "3"
+      puts "Saving students..."
       save_students
     when "4"
+      puts "Loading students..."
       load_students
     when "9"
+      puts "Exiting program..."
       exit #cause the program to terminate
     else
       puts "I don't know what you meant, please try again"
