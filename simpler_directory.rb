@@ -15,7 +15,9 @@ def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
   puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
+  puts "4. Save the list to a different file"
+  puts "5. Load the list from students.csv"
+  puts "6. Load the list from a different file"
   puts "9. Exit"
 end
 
@@ -31,8 +33,14 @@ def process selection
       puts "Saving students..."
       save_students
     when "4"
+      puts "What file would you like to save to?"
+      save_students(STDIN.gets.chomp)
+    when "5"
       puts "Loading students..."
       load_students
+    when "6"
+      puts "What file would you like to load?"
+      load_students(STDIN.gets.chomp)
     when "9"
       puts "Exiting program..."
       exit #cause the program to terminate
@@ -94,9 +102,9 @@ def print_footer
 end
 
 #add a method to save the students array to file if 3 chosen in menu
-def save_students
+def save_students (filename = "students.csv")
   #open a file to be written to
-  file = File.open("students.csv", "w")
+  file = File.open(filename, "w")
   #iterate through students and save their name and cohort to a new array
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
