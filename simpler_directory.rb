@@ -104,32 +104,30 @@ end
 #add a method to save the students array to file if 3 chosen in menu
 def save_students (filename = "students.csv")
   #open a file to be written to
-  file = File.open(filename, "w")
+  File.open(filename, "w") do |file|
   #iterate through students and save their name and cohort to a new array
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    #convert hash in array to a string (separated by a comma) to be saved
-    csv_line = student_data.join(",")
-    #save this string to the opened file
-    file.puts csv_line
+    @students.each do |student|
+      student_data = [student[:name], student[:cohort]]
+      #convert hash in array to a string (separated by a comma) to be saved
+      csv_line = student_data.join(",")
+      #save this string to the opened file
+      file.puts csv_line
+    end
   end
-  #close the file
-  file.close
 end
 
 #add a method to read the filename given if 4 chosen in menu
 def load_students (filename = "students.csv")
   #open the filename or students.csv as default
-  file = File.open(filename, "r")
+  File.open(filename, "r") do |file|
   #iterate over each line in the file
-  file.readlines.each do |line|
+    file.readlines.each do |line|
     #split at the comma and parallel assign name to the first value, cohort to the second
-    name, cohort = line.chomp.split(",")
+      name, cohort = line.chomp.split(",")
     #create a hash and push to the @students array using method
-    @students << {name: name, cohort: cohort}
+      @students << {name: name, cohort: cohort}
+    end
   end
-  #close the file
-  file.close
 end
 
 #add a method that takes the loading file as an argument from the command line
